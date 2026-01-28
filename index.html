@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vikings Episode Codex</title>
+  <meta name="description" content="Explore every season and episode of Vikings with descriptions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="sigil" aria-hidden="true"></div>
+      <div>
+        <div class="title">Vikings <span class="muted">Episode Codex</span></div>
+        <div class="subtitle" id="subtitle">All seasons • all episodes • clean descriptions</div>
+      </div>
+    </div>
+
+    <div class="topbar-actions">
+      <button class="chip" id="themeToggle" type="button" aria-pressed="false" title="Toggle theme">
+        <span class="chip-dot" aria-hidden="true"></span>
+        <span id="themeLabel">Night</span>
+      </button>
+      <a class="chip" href="https://www.tvmaze.com/" target="_blank" rel="noreferrer">Data: TVMaze</a>
+    </div>
+  </header>
+
+  <div class="shell">
+    <aside class="sidebar" aria-label="Filters">
+      <div class="panel">
+        <div class="panel-title">Find</div>
+        <label class="field">
+          <span class="field-label">Search</span>
+          <input id="search" type="search" placeholder="Episode title, number, keyword…" autocomplete="off" />
+        </label>
+
+        <div class="row">
+          <label class="field">
+            <span class="field-label">Show</span>
+            <select id="showSelect" aria-label="Show"></select>
+          </label>
+        </div>
+
+        <div class="row">
+          <label class="field">
+            <span class="field-label">Season</span>
+            <select id="seasonSelect" aria-label="Season"></select>
+          </label>
+        </div>
+
+        <div class="row row-2">
+          <button class="chip" id="spoilerToggle" type="button" aria-pressed="true" title="Hide summaries until opened">
+            Spoiler-safe: On
+          </button>
+          <button class="chip" id="viewToggle" type="button" aria-pressed="false" title="Toggle compact view">
+            View: Cards
+          </button>
+        </div>
+
+        <div class="stats" id="stats"></div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Seasons</div>
+        <nav class="season-list" id="seasonList" aria-label="Season list"></nav>
+      </div>
+
+      <div class="panel smallprint" id="attribution">
+        Episode info and summaries are fetched live from TVMaze. If you want everything offline, tell me and I’ll generate original (non-copied) one-line descriptions for each episode.
+      </div>
+    </aside>
+
+    <main id="main" class="main" tabindex="-1">
+      <section class="hero" id="hero">
+        <div class="hero-left">
+          <div class="kicker">Codex Entry</div>
+          <h1 class="hero-title" id="showName">Loading…</h1>
+          <p class="hero-desc" id="showSummary">Fetching episode list.</p>
+          <div class="hero-meta" id="showMeta"></div>
+        </div>
+        <div class="hero-right" aria-hidden="true">
+          <div class="runes"></div>
+          <img class="poster" id="showPoster" alt="" loading="lazy" decoding="async" />
+        </div>
+      </section>
+
+      <section class="list-head">
+        <div>
+          <h2 class="section-title" id="sectionTitle">Episodes</h2>
+          <div class="section-sub" id="sectionSub">—</div>
+        </div>
+        <div class="list-actions">
+          <button class="chip" id="sortToggle" type="button" aria-pressed="false" title="Toggle sort order">Sort: Asc</button>
+          <button class="chip" id="clearFilters" type="button">Clear</button>
+        </div>
+      </section>
+
+      <section class="episodes" id="episodes" aria-live="polite"></section>
+
+      <footer class="footer">
+        <div>Built as a lightweight single-file web app (no installs). Best opened using a local server (e.g. VS Code Live Server) to avoid browser restrictions.</div>
+      </footer>
+    </main>
+  </div>
+
+  <template id="episodeCardTpl">
+    <article class="card" tabindex="0">
+      <div class="card-media" aria-hidden="true">
+        <img class="thumb" data-img alt="" loading="lazy" decoding="async" />
+      </div>
+      <div class="card-top">
+        <div class="badge" data-badge></div>
+        <div class="card-title" data-title></div>
+      </div>
+      <div class="card-meta" data-meta></div>
+      <div class="card-actions">
+        <button class="btn" type="button" data-toggle>Open</button>
+        <a class="btn ghost" target="_blank" rel="noreferrer" data-link>TVMaze</a>
+      </div>
+      <div class="card-body" hidden data-body>
+        <div class="summary" data-summary></div>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
